@@ -195,7 +195,6 @@ def default_review_config(
         "fit_mode": "clip",
         "keyframes": [],
         "invert": {"enabled": False, "start": 0.0, "end": duration},
-        "effects": [],
         "audio": {
             "mode": "original",
             "bgm_volume": 0.35,
@@ -236,24 +235,6 @@ def validate_review_config(config: Any, duration: float, bgm_available: bool, tr
     invert_end = clamp(float(invert_raw.get("end", duration)), 0, duration)
     if invert_end < invert_start:
         invert_start, invert_end = invert_end, invert_start
-    allowed_effects = {"glitch", "scan", "focus", "feedback", "rgb", "pixel", "warp", "raster"}
-    effects = []
-    for item in config.get("effects", []):
-        effect_type = str(item.get("type", ""))
-        if effect_type not in allowed_effects:
-            raise ValueError(f"不支持的特效: {effect_type}")
-        start = clamp(float(item.get("start", 0)), 0, duration)
-        end = clamp(float(item.get("end", duration)), 0, duration)
-        if end <= start:
-            raise ValueError("特效结束时间必须大于开始时间")
-        effects.append(
-            {
-                "type": effect_type,
-                "start": start,
-                "end": end,
-                "intensity": clamp(float(item.get("intensity", 0.75)), 0.0, 1.0),
-            }
-        )
     audio_raw = config.get("audio") or {}
     transform_raw = config.get("transform_review") or {}
     inside_count = max(1, int(inside_count))
@@ -290,7 +271,6 @@ def validate_review_config(config: Any, duration: float, bgm_available: bool, tr
         "fit_mode": fit_mode,
         "keyframes": keyframes,
         "invert": {"enabled": bool(invert_raw.get("enabled", False)), "start": invert_start, "end": invert_end},
-        "effects": effects,
         "audio": {
             "mode": audio_mode,
             "bgm_volume": clamp(float(audio_raw.get("bgm_volume", 0.35)), 0.0, 1.0),

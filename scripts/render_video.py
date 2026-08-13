@@ -168,60 +168,6 @@ def compose(base: np.ndarray, overlay: np.ndarray, corners: np.ndarray, mode: st
     return cv2.add(cv2.bitwise_and(base, base, mask=inverse), cv2.bitwise_and(aligned_overlay, aligned_overlay, mask=mask))
 
 
-def apply_effect(frame: np.ndarray, effect: dict[str, Any], time_value: float, corners: np.ndarray) -> np.ndarray:
-    kind = effect["type"]
-    strength = float(effect["intensity"])
-    height, width = frame.shape[:2]
-    output = frame.copy()
-    if kind == "glitch":
-        rng = np.random.default_rng(int(time_value * 30) + 1701)
-        for _ in range(max(1, int(2 + strength * 7))):
-            y = int(rng.integers(0, max(1, height - 2)))
-            band = int(rng.integers(2, max(3, int(height * 0.04))))
-            shift = int(rng.integers(-max(2, int(width * 0.06)), max(3, int(width * 0.06))))
-            output[y : min(height, y + band)] = np.roll(output[y : min(height, y + band)], shift, axis=1)
-    elif kind == "scan":
-        position = int(((time_value - effect["start"]) / max(0.001, effect["end"] - effect["start"])) * height) % height
-        band = max(3, int(height * (0.01 + strength * 0.03)))
-        y0, y1 = max(0, position - band), min(height, position + band)
-        overlay = output.copy()
-        overlay[y0:y1, :, 0] = 255
-        overlay[y0:y1, :, 1] = np.maximum(overlay[y0:y1, :, 1], 210)
-        output = cv2.addWeighted(output, 1 - 0.45 * strength, overlay, 0.45 * strength, 0)
-    elif kind == "focus":
-        polygon = np.column_stack((corners[:, 0] * width, corners[:, 1] * height)).astype(np.int32)
-        mask = np.zeros((height, width), dtype=np.uint8)
-        cv2.fillPoly(mask, [polygon], 255)
-        dark = (output.astype(np.float32) * (1 - 0.7 * strength)).astype(np.uint8)
-        output = np.where(mask[..., None] > 0, output, dark)
-    elif kind == "feedback":
-        distance = max(1, int(width * 0.02 * strength))
-        echo_a = np.roll(output, distance, axis=1)
-        echo_b = np.roll(output, -distance, axis=0)
-        output = cv2.addWeighted(output, 0.62, echo_a, 0.22 * strength, 0)
-        output = cv2.addWeighted(output, 1.0, echo_b, 0.16 * strength, 0)
-    elif kind == "rgb":
-        distance = max(1, int(width * 0.018 * strength))
-        blue, green, red = cv2.split(output)
-        output = cv2.merge((np.roll(blue, -distance, axis=1), green, np.roll(red, distance, axis=1)))
-    elif kind == "pixel":
-        factor = max(0.04, 0.28 - 0.22 * strength)
-        small = cv2.resize(output, (max(2, int(width * factor)), max(2, int(height * factor))), interpolation=cv2.INTER_AREA)
-        small = (small // max(1, int(8 + 36 * strength))) * max(1, int(8 + 36 * strength))
-        output = cv2.resize(small, (width, height), interpolation=cv2.INTER_NEAREST)
-    elif kind == "warp":
-        yy, xx = np.indices((height, width), dtype=np.float32)
-        amplitude = width * 0.025 * strength
-        map_x = xx + np.sin(yy / max(8.0, height * 0.04) + time_value * 5) * amplitude
-        output = cv2.remap(output, map_x, yy, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-    elif kind == "raster":
-        band = max(3, int(height * 0.025))
-        amount = max(1, int(width * 0.035 * strength))
-        for y in range(0, height, band * 2):
-            output[y : min(height, y + band)] = np.roll(output[y : min(height, y + band)], amount if (y // band) % 4 == 0 else -amount, axis=1)
-    return output
-
-
 def build_ffmpeg_command(
     ffmpeg: str,
     silent_video: Path,
@@ -326,9 +272,6 @@ def main() -> int:
                 base = source_frame
                 overlay = inside_frame
             frame = compose(base, overlay, corners, config["fit_mode"], window_open=window_open)
-            for effect in config["effects"]:
-                if effect["start"] <= time_value <= effect["end"]:
-                    frame = apply_effect(frame, effect, time_value, corners)
             writer.write(frame)
             rendered += 1
     finally:
@@ -376,7 +319,6 @@ def main() -> int:
             "window_closed_frames": rendered - window_open_frames,
             "first_window_open_time": None if first_window_open_time is None else round(first_window_open_time, 4),
             "track_source": "manual_keyframes" if config["keyframes"] else tracking["detector"]["mode"],
-            "effects_count": len(config["effects"]),
             "style_sequence": config["style_sequence"],
             "style_frame_counts": style_frame_counts,
             "style_transition_frames": transition_frame_count,

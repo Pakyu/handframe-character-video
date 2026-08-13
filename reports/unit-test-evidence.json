@@ -1,10 +1,10 @@
 {
   "evidence_type": "local_unit_tests",
   "tested_at": "2026-08-13",
-  "skill_version": "0.9.1",
+  "skill_version": "0.9.2",
   "runner": "Python 3.10 unittest",
   "ok": true,
-  "summary": {"total": 36, "passed": 36, "failed": 0, "errors": 0},
+  "summary": {"total": 38, "passed": 38, "failed": 0, "errors": 0},
   "coverage": [
     "review config validation and transform-review default",
     "corner geometry and BGM permission boundaries",
@@ -34,7 +34,9 @@
     "bow-tie hand masks render as self-intersecting paths rather than convex hulls",
     "local five-frame median and weighted smoothing reduce isolated tracking spikes with tapered boundaries",
     "crossing detector distinguishes semantic bow-tie paths from ordinary convex quads",
-    "multi-style pixel distinctness proxy uses mean absolute frame delta"
+    "multi-style pixel distinctness proxy uses mean absolute frame delta",
+    "legacy segment-effect configuration is ignored during validation",
+    "review UI contains no segment-effect controls or handlers"
   ],
   "limitations": ["five real transformed videos are manual returns rather than provider-backed evidence", "integer trim was tested separately on the supplied real source rather than inside unittest", "real-hand evidence is limited to supplied projects", "pixel distinctness is not a substitute for human identity/style review", "the latest rendered output still lacks final user visual confirmation"]
 }
