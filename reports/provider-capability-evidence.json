@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-08-11",
+  "skill_version": "0.3.0",
+  "preferred_adapter_skill_present": true,
+  "preferred_adapter": "小云雀-AI创作 backend-agent video editing",
+  "xyq_access_key_available": false,
+  "pippit_tool_cli_available": false,
+  "provider_submission_attempted": false,
+  "credits_consumed": false,
+  "provider_backed_output": false,
+  "missing_evidence": [
+    "authenticated video upload",
+    "provider thread_id and run_id",
+    "named-character transformed video",
+    "human review of provider output"
+  ]
+}

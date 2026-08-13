@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "named_ip_reframed_to_original_contract",
+      "prompt": "用户只上传原片并提到蜘蛛侠；按长期规则生成原创都市漫画英雄转绘请求。",
+      "assertions": [
+        "selection.style_id equals original-urban-comic-hero",
+        "selection.ip_reframing_performed equals true",
+        "selection.selection_source equals user-explicit",
+        "selection.gender_inference_performed equals false",
+        "provider message excludes named IP and exact protected designs",
+        "external submission and credits remain unconfirmed before user approval"
+      ],
+      "human_notes": "请求合同证明没有自动性别分类，不证明真实视频生成质量。"
+    },
+    {
+      "id": "artist_named_style_reframe",
+      "prompt": "用户要求宫崎骏风格手势框视频。",
+      "assertions": [
+        "style id maps to warm-handpainted-fantasy-anime",
+        "provider message describes medium, palette, light, motion and mood",
+        "provider message does not name Miyazaki or Studio Ghibli"
+      ],
+      "human_notes": "这是请求转译测试，不是艺术相似度评价。"
+    },
+    {
+      "id": "continuous_line_to_quad_reveal",
+      "prompt": "前段双手还没张开时让遮罩是一条线，并跟随指尖连续展开成四边形，不要突然出现。",
+      "assertions": [
+        "two detected hands produce a tracked quad without a minimum spread gate",
+        "near-degenerate finger geometry is stabilized to a renderable thin line",
+        "line, opening and open phases remain visible",
+        "corners follow thumb and index tips continuously",
+        "default is used only when both hands are unavailable beyond the hold window",
+        "preview and renderer consume the same continuous geometry"
+      ],
+      "human_notes": "细线厚度和手部检测稳定性仍需在真实视频中观看；快速动作、遮挡或特殊手势可能需要人工关键帧。"
+    },
+    {
+      "id": "aligned_dynamic_mask_window",
+      "prompt": "把与原片对齐的风格化视频通过双手框显示，不要把视频扭曲塞进框里。",
+      "assertions": [
+        "review config fit_mode equals clip",
+        "inside_loop equals false",
+        "overlay is resized once to the full output frame",
+        "hand quadrilateral is used only as a visibility mask",
+        "perspective compose mode is rejected",
+        "inside and source use the same timeline position"
+      ],
+      "human_notes": "空间对齐的自动测试不替代真实视频逐帧观看；生成模型若改变人物位置，遮罩合成仍会错位。"
+    },
+    {
+      "id": "recorded_fixture_transform_to_handframe",
+      "prompt": "用合成原片与合成转绘片验证请求、媒体 QA、AI 转绘勾选、四角审核、渲染和成片合同。",
+      "assertions": [
+        "transform request and verification are copied into project",
+        "inside_origin.route equals ai-video-edit",
+        "gender_inference_performed equals false",
+        "transform_review.approved is required before confirmation",
+        "fit_mode equals clip and the transformed layer is not perspective-warped",
+        "final output duration and resolution match source",
+        "provider_backed remains false for recorded fixture"
+      ],
+      "human_notes": "合成夹具不能证明真实平台的原创角色或手绘动画转绘质量。"
+    },
+    {
+      "id": "real_project_success_playbook",
+      "prompt": "用一条人物原片制作原创角色手势框视频，并把本次验证过的成功顺序应用到下一次制作。",
+      "assertions": [
+        "provider-supported integer duration is resolved before transformation",
+        "one non-destructive integer-duration source remains the timeline identity for generation tracking review and render",
+        "provider request preserves camera composition body motion hand trajectory and timing while changing only original character and matching environment",
+        "misaligned transformed video is rejected rather than repaired with perspective warp",
+        "two-hand geometry preserves line opening and open phases without an area gate",
+        "human approval covers both the transformed video and the hand-window track",
+        "final output is spot-checked at absent line opening open and late-motion moments",
+        "missing provider trace remains explicitly non-provider-backed"
+      ],
+      "human_notes": "这些规则来自一个已通过用户审核的真实 10 秒项目；不能据此宣称跨视频、跨模型或商业用途稳定。"
+    },
+    {
+      "id": "multi_character_global_timeline_sequence",
+      "prompt": "同一条 11 秒人物原片生成六个明显不同的原创角色转绘，手框完全展开后每 1–2 秒按顺序切换。",
+      "assertions": [
+        "every style is generated as a complete source-duration transformed video",
+        "replacement prompts permit visible changes to face shape hair makeup costume material and character identity",
+        "motion skeleton body placement head and shoulder anchors hands fingertips camera and timing remain aligned",
+        "rotation begins at the first open hand-frame phase and divides the remaining duration across all styles",
+        "every transformed video is sampled at the composition global time and never restarted on a style switch",
+        "transitions use a short crossfade and the last style holds to the end without looping",
+        "every transformed video has a separate review approval and identity check"
+      ],
+      "human_notes": "代码测试与本次五条真实回传视频证明轮换、时间合同和像素级差异代理；角色身份、审美、动作稳定性和视觉质量仍需逐条人审。"
+    },
+    {
+      "id": "semantic_rotation_crossing_runtime_gate",
+      "prompt": "手部在 7 秒附近旋转，使上边和下边交叉；保留真实动作，不要稳定成普通凸四边形。",
+      "assertions": [
+        "corner identity remains left index right index right thumb left thumb",
+        "self-intersecting tracking keyframes are valid and are not angle-sorted convexified or cyclically reindexed",
+        "renderer reports semantic-fingertip-bow-tie crossing frames and times",
+        "final verification fails when tracking contains crossing keyframes but the render reports no crossing frames",
+        "human review compares source and output before any local smoothing"
+      ],
+      "human_notes": "运行时门禁证明交叉几何进入渲染代码路径；交叉是否准确贴合手指仍需人工观看交叉前、中、后三段。"
+    },
+    {
+      "id": "multi_style_pairwise_difference_gate",
+      "prompt": "五条转绘片按顺序轮换，避免误用重复文件或几乎相同的画面。",
+      "assertions": [
+        "all transformed videos are sampled pairwise at matching global times",
+        "each pair records mean absolute pixel delta and sample deltas",
+        "minimum pairwise delta must meet the configured proxy threshold",
+        "report labels the metric as a proxy rather than character identity proof",
+        "human approval remains mandatory for identity and aesthetic difference"
+      ],
+      "human_notes": "像素差异可以发现重复或近似重复素材，但不能判断两个角色是否都好看、是否只是换装或是否符合用户审美。"
+    }
+  ]
+}

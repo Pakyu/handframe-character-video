@@ -1,0 +1,27 @@
+{
+  "evidence_type": "real_project_self_intersecting_hand_rotation",
+  "tested_at": "2026-08-13",
+  "skill_version": "0.8.2",
+  "project": "G:/潘柏宇/Codex/handframe-tests/multi-five-20260812/review-project-v2",
+  "user_correction": "约 7 秒是手部旋转造成的上边与下边交叉重叠，不应被稳定化为普通凸四边形",
+  "corrected_diagnosis": {
+    "0.8.1_error": "按几何角度与最小位移重排角点，误删了真实自交动作",
+    "0.8.2_rule": "固定使用左食指、右食指、右拇指、左拇指的语义顺序，允许自交路径"
+  },
+  "runtime_evidence": {
+    "detector": "mediapipe-tasks-vision-web-0.10.14",
+    "detection_coverage": 0.9853,
+    "crossing_sample_count": 7,
+    "crossing_times_seconds": [6.6667, 6.8333, 7.0, 7.1667, 7.8333, 8.0, 8.1667],
+    "first_continuous_crossing": [6.6667, 7.1667],
+    "second_continuous_crossing": [7.8333, 8.1667]
+  },
+  "mask_evidence": {
+    "synthetic_bow_tie_filled_pixels": 10081,
+    "approximate_convex_hull_pixels": 19599,
+    "ratio_to_convex_hull": 0.514,
+    "meaning": "renderer follows the self-intersecting path instead of filling its convex hull"
+  },
+  "rollback": "tracking.convex-smoothed-backup-20260813.json preserves the previous project track",
+  "human_recheck": "pending user playback in review page"
+}

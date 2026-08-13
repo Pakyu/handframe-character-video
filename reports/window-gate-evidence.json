@@ -1,0 +1,31 @@
+{
+  "evidence_type": "real_project_continuous_line_to_quad",
+  "tested_at": "2026-08-12",
+  "skill_version": "0.6.0",
+  "provider_backed": false,
+  "human_blind_review": false,
+  "ok": true,
+  "tracking": {
+    "sample_fps": 6.0,
+    "sampled_frames": 63,
+    "detected_frames": 61,
+    "held_frames": 1,
+    "visible_frames": 62,
+    "detection_coverage": 0.9683,
+    "phase_counts": {"line": 10, "opening": 9, "open": 42, "held": 1, "absent": 1}
+  },
+  "frame_checks": [
+    {"time_seconds": 0.0, "phase": "absent", "mask_area": 0.315, "mean_abs_delta_from_source": 0.0},
+    {"time_seconds": 0.1667, "phase": "opening", "mask_area": 0.00456, "mean_abs_delta_from_source": 0.2318},
+    {"time_seconds": 1.5, "phase": "line", "mask_area": 0.00169, "mean_abs_delta_from_source": 0.1218},
+    {"time_seconds": 2.5, "phase": "opening", "mask_area": 0.0079, "mean_abs_delta_from_source": 0.561},
+    {"time_seconds": 3.5, "phase": "open", "mask_area": 0.01207, "mean_abs_delta_from_source": 1.0327},
+    {"time_seconds": 3.6667, "phase": "open", "mask_area": 0.06017, "mean_abs_delta_from_source": 4.7707}
+  ],
+  "visual_evidence": "handframe-tests/reference-effect-20260811/current-line-to-quad-preview.jpg",
+  "limitations": [
+    "The measured phases are specific to the supplied real source and current MediaPipe result.",
+    "Six-fps tracking is interpolated during rendering; faster gestures may require a higher sample rate.",
+    "User visual approval was recorded after reviewing the real rendered output; this remains a non-blind single-project review."
+  ]
+}

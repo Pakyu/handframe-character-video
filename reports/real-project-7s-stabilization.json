@@ -1,0 +1,35 @@
+{
+  "evidence_type": "real_project_tracking_stabilization",
+  "tested_at": "2026-08-12",
+  "skill_version": "0.8.1",
+  "project": "G:/潘柏宇/Codex/handframe-tests/multi-five-20260812/review-project-v2",
+  "user_observation": "手框在约 7 秒发生抽搐",
+  "diagnosis": {
+    "primary": "同一四边形的四个角点发生循环重编号，跨帧插值连接了错误角点",
+    "secondary": "6.0–8.75 秒存在局部检测尖峰"
+  },
+  "repair": {
+    "corner_identity": "每帧从四种循环排列中选择相对上一帧平均位移最小的排列",
+    "local_filter": "五帧中值去尖峰后使用 1:2:3:2:1 加权平滑",
+    "start_seconds": 6.0,
+    "end_seconds": 8.75,
+    "taper_seconds": 0.5,
+    "whole_video_locked": false
+  },
+  "measurements": {
+    "before_max_mean_corner_motion": 0.093031,
+    "before_max_time_seconds": 7.8333,
+    "after_max_mean_corner_motion_in_interval": 0.02799,
+    "after_interval_mean_corner_motion": 0.014585,
+    "after_samples": 17
+  },
+  "validation": {
+    "unit_tests": "34/34 passed",
+    "skill_package_validation": "passed with zero warnings",
+    "human_recheck": "pending user playback in review page"
+  },
+  "limitations": [
+    "motion statistics validate reduced corner-coordinate spikes but do not replace human visual review",
+    "the repair is scoped to the reported interval of this project"
+  ]
+}
