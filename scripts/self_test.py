@@ -219,7 +219,6 @@ def execute(root: Path) -> dict:
             {"time": 0.0, "corners": [[0.2, 0.2], [0.8, 0.18], [0.78, 0.8], [0.22, 0.78]]},
             {"time": duration, "corners": [[0.26, 0.24], [0.76, 0.22], [0.82, 0.76], [0.18, 0.74]]},
         ]
-        config["effects"] = [{"type": "rgb", "start": 0.6, "end": 1.2, "intensity": 0.7}]
         config["audio"] = {"mode": "none", "bgm_volume": 0.35, "available": False}
         config["review_notes"] = "self-test recorded fixture"
         config["transform_review"] = {"required": True, "approved": False}

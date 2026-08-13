@@ -77,6 +77,12 @@ class ConfigTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_review_config(config, 11.0, False, False, 3)
 
+    def test_legacy_segment_effects_are_removed_from_validated_config(self):
+        config = default_review_config(5.0, False)
+        config["effects"] = [{"type": "rgb", "start": 1.0, "end": 2.0, "intensity": 0.8}]
+        validated = validate_review_config(config, 5.0, False)
+        self.assertNotIn("effects", validated)
+
 
 class TrackingTests(unittest.TestCase):
     def test_imported_tracking_must_match_source_contract(self):
@@ -266,6 +272,11 @@ class ReviewAssetTests(unittest.TestCase):
         self.assertIn("source.addEventListener('loadeddata',render)", review)
         self.assertIn("requestedTime=Number(new URLSearchParams(location.search).get('t'))", review)
         self.assertIn("new URLSearchParams(location.search).get('t')", review)
+
+    def test_review_has_no_segment_effect_controls_or_handlers(self):
+        review = (Path(__file__).resolve().parents[1] / "assets" / "review.html").read_text(encoding="utf-8")
+        for removed in ("分段特效", "effectType", "effectStart", "effectEnd", "effectIntensity", "addEffect", "drawEffects", "effectNames"):
+            self.assertNotIn(removed, review)
 
 
 class TransformRequestTests(unittest.TestCase):
