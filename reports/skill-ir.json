@@ -3,7 +3,7 @@
   "generated_at": "2026-08-13",
   "package": {
     "name": "handframe-character-video",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "owner": "local-user",
     "maturity_tier": "governed",
     "lifecycle_stage": "production-v1",
