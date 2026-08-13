@@ -1,0 +1,33 @@
+{
+  "evidence_type": "recorded_fixture",
+  "evidence_kind": "recorded_fixture",
+  "provider_backed": false,
+  "human_blind_review": false,
+  "ok": true,
+  "related_real_project_human_review": "reports/real-project-human-review.json",
+  "real_project_review_scope": "non-blind single-project user approval; not accepted as blind-review evidence by the release gate",
+  "project_dir": "<fixture_root>/project",
+  "checks": {
+    "prepare_completed": true,
+    "single_source_transform_request": true,
+    "explicit_style_selection": true,
+    "gender_inference_performed": false,
+    "transform_verification_present": true,
+    "transform_review_gate_rejected_unapproved": true,
+    "transform_delta_mean_abs": 106.381,
+    "review_proxy_generated": true,
+    "review_server_identity": true,
+    "range_request_206": true,
+    "review_confirmation": true,
+    "watch_confirmation": true,
+    "render_completed": true,
+    "verify_output": true,
+    "visual_delta_mean_abs": 38.339
+  },
+  "limitations": [
+    "manual tracking fixture; not MediaPipe provider-backed detection evidence",
+    "synthetic 320x180 video; not long-duration or 4K performance evidence",
+    "synthetic transformed clip; not provider-backed character or style conversion evidence",
+    "no human blind review"
+  ]
+}

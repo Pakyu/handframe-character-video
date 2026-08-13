@@ -1,0 +1,36 @@
+{
+  "evidence_type": "recorded_fixture",
+  "tested_at": "2026-08-11",
+  "skill_version_tested": "0.6.0",
+  "surface": "Codex in-app Chromium",
+  "fixture": "real 1080x1920 10-second portrait source with manual Seedance transformed video",
+  "ok": true,
+  "checks": {
+    "source_duration_seconds": 10.01,
+    "inside_duration_seconds": 10.08,
+    "canvas_internal_size": [1080, 1920],
+    "canvas_visible_size_css_pixels": [161.58, 287.27],
+    "canvas_visible_aspect_ratio_matches_source": true,
+    "grab_cursor_present": true,
+    "top_left_handle_dragged_from_normalized": [0.22, 0.23],
+    "top_left_handle_dragged_to_approx_normalized": [0.343, 0.273],
+    "quadrilateral_visually_followed_drag": true,
+    "test_drag_reset_by_reload": true,
+    "review_confirmation_not_submitted": true,
+    "render_not_started": true
+    ,"continuous_detection_completed": true
+    ,"two_hand_detection_coverage": 0.9683
+    ,"phase_counts": {"line": 10, "opening": 9, "open": 42, "held": 1, "absent": 1}
+    ,"thin_or_crossed_candidates_accepted_after_stabilization": true
+    ,"phase_label_at_1_5_seconds": "细线阶段 · 跟随指尖"
+    ,"phase_label_at_2_5_seconds": "展开中 · 连续显露风格化画面"
+    ,"phase_label_at_3_7_seconds": "四边形已展开"
+    ,"playhead_reset_to_zero_after_test": true
+  },
+  "limitations": [
+    "one Codex in-app Chromium desktop viewport; touch/mobile drag is not yet tested",
+    "one supplied real clip is evidence for this gesture but does not establish general hand-detection accuracy",
+    "no long-video, 4K, HDR, VFR, or cross-browser evidence",
+    "no human blind review"
+  ]
+}

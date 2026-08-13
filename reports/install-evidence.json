@@ -1,0 +1,22 @@
+{
+  "evidence_type": "isolated_local_runtime_install",
+  "tested_at": "2026-08-11",
+  "skill_version": "0.3.0",
+  "platform": "Windows",
+  "ok": true,
+  "dependencies": {"numpy": "2.2.6", "opencv-python-headless": "4.13.0.92", "ffmpeg": "8.1.1", "python": "3.10"},
+  "checks": {
+    "fresh_venv_created": true,
+    "requirements_installed_without_hash_bypass": true,
+    "imports_succeeded": true,
+    "request_and_recorded_fixture_self_test_succeeded": true,
+    "unapproved_transform_review_was_rejected": true,
+    "temporary_venv_removed_after_test": true
+  },
+  "not_tested": [
+    "XYQ provider authentication or credits",
+    "provider-backed named-character transformation",
+    "remote npx skill installation",
+    "macOS and Linux"
+  ]
+}

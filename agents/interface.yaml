@@ -1,0 +1,48 @@
+interface:
+  display_name: "手势框角色转绘视频"
+  short_description: "一条原片生成多个差异化角色，按全局时间在手势框内轮换"
+  default_prompt: "使用 $handframe-character-video 处理我提供的一条人物原片。让我选择一个或多个原创角色/描述性画风；多角色方案要显著改变脸型、发色、发型、妆容、服装与身份，只保留动作骨架、人物占位、双手指尖、镜头和时序锚点。每个风格生成一条完整且与原片全局时间对齐的转绘视频。手框完全展开后把剩余时长平均分给全部角色，约每 1–2 秒切换并短交叉淡化；切换时读取各转绘片的同一全局时刻，不从头重播，末尾不循环。最终只用双手四边形作为动态遮罩窗口显露同位置风格化画面；经我逐条观看全部转绘结果并校正四角后再渲染。"
+  examples:
+    - "把人物做成原创都市蒙面漫画英雄，放进双手框里"
+    - "我说蜘蛛侠时只借用都市超级英雄漫画感觉，角色必须原创"
+    - "把人物转成原创高科技装甲英雄，再做手指取景框效果"
+    - "做成温暖手绘奇幻日系动画风格"
+    - "用六个明显不同的原创女性角色转绘，手框展开后每 1–2 秒轮换"
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets: ["openai", "claude", "generic", "agent-skills-compatible"]
+  activation:
+    mode: "manual"
+    paths: []
+  execution:
+    context: "local-plus-approved-external-provider"
+    shell: "powershell-or-bash"
+  trust:
+    source_tier: "local"
+    remote_inline_execution: "forbid"
+    generated_public_claims: "evidence-bound"
+  permissions:
+    network: "approved video-edit provider plus pinned MediaPipe components"
+    file_read: "explicit user media, provider output, and project files"
+    file_write: "new transform and project directories only"
+    subprocess: "Python, ffmpeg, ffprobe, and an explicitly approved provider adapter"
+    interactive: "role/style selection, upload/credits confirmation, transformed-video approval, hand-frame review"
+  degradation:
+    openai: "canonical-source"
+    claude: "canonical-source"
+    generic: "manual provider package"
+gates:
+  production:
+    - "explicit style selection"
+    - "no sensitive attribute inference"
+    - "provider trace and credits confirmation"
+    - "transformed-video human approval"
+    - "hand-frame review confirmation"
+    - "output verification"
+    - "pairwise multi-style visual-distinctness proxy plus human identity review"
+    - "semantic fingertip crossing preserved in runtime render report"
+  governed:
+    - "source files remain immutable"
+    - "upload and external cost are explicit"
+    - "provider prompts exclude named IP and exact protected designs"
+    - "missing provider/human evidence stays explicit"

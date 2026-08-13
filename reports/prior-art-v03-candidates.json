@@ -1,0 +1,23 @@
+{
+  "researched_at": "2026-08-11",
+  "queries": [
+    "video to video character transformation",
+    "consistent character restyle video",
+    "person costume transformation video"
+  ],
+  "catalogs": {
+    "skills_sh": "completed via npx skills find",
+    "skillsmp": "failed: Python 3.10 lacks datetime.UTC required by bundled search script"
+  },
+  "candidates": [
+    {"id": "prime-skills/runcomfy-agent-skills@video-edit", "skills_sh_installs_observed": "400.9K", "inspection_status": "catalog result only; canonical relationship to inspected agentspace repository not established"},
+    {"id": "agentspace-so/runcomfy-skills@video-edit", "skills_sh_installs_observed": 12, "github_stars_observed": 4, "inspection_status": "primary GitHub SKILL.md inspected"},
+    {"id": "samuraigpt/generative-media-skills@muapi-character-story-video", "skills_sh_installs_observed": 594, "inspection_status": "catalog result only"},
+    {"id": "agentara/skills@video-character-design", "skills_sh_installs_observed": 252, "inspection_status": "catalog result only"},
+    {"id": "docs.platform.decart.ai@decart", "skills_sh_installs_observed": 109, "inspection_status": "catalog result; official SDK search result inspected"},
+    {"id": "advibly/skills@video-restyle", "skills_sh_installs_observed": 3, "inspection_status": "catalog result only"},
+    {"id": "titlesnyc/titles-skills@restyle-video", "skills_sh_installs_observed": 1, "inspection_status": "catalog result only"}
+  ],
+  "deduplication_note": "The prime-skills and agentspace-so install counts were not merged because the canonical mirror/fork relationship was not verified.",
+  "rating_evidence": "missing evidence"
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": 3,
+  "aliases": {
+    "marvel-spider-man": "original-urban-comic-hero",
+    "marvel-spider-gwen": "original-urban-comic-hero",
+    "spider-man": "original-urban-comic-hero",
+    "spider-gwen": "original-urban-comic-hero",
+    "marvel-iron-man": "original-armored-hero",
+    "marvel-rescue": "original-armored-hero",
+    "iron-man": "original-armored-hero",
+    "rescue-armor": "original-armored-hero"
+  },
+  "styles": [
+    {
+      "id": "original-urban-comic-hero",
+      "display_name": "原创都市蒙面漫画英雄",
+      "category": "original-character",
+      "character_presentation": "preserve-source-silhouette",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "将原片中的主要人物转绘为完全原创的都市蒙面漫画英雄：原创全脸面罩、非红蓝主色的独特配色、原创几何能量纹样、轻量护甲与弹性战衣混合结构；背景改为与人物一致的原创大都市高楼屋顶。使用经典美式超级英雄漫画的一般视觉语言，包括有力黑色墨线、赛璐璐分层阴影、印刷半调网点和戏剧性轮廓光。不得出现或暗示任何现有角色名称、蜘蛛/蝙蝠等既有角色标志、精确服装设计、经典配色组合或可识别剪影。"
+    },
+    {
+      "id": "original-armored-hero",
+      "display_name": "原创高科技装甲英雄",
+      "category": "original-character",
+      "character_presentation": "preserve-source-silhouette",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "将原片中的主要人物转绘为原创高科技装甲英雄：独原创作的非红金主色装甲分件、非圆形能源结构、原创头盔与配色，并让环境与角色统一为未来都市或工业空间；不得出现或暗示任何现有角色名称、标志、经典配色、胸甲轮廓或精确设计。"
+    },
+    {
+      "id": "warm-handpainted-fantasy-anime",
+      "display_name": "温暖手绘奇幻日系动画",
+      "category": "visual-style",
+      "character_presentation": "preserve-source-silhouette",
+      "ip_mode": "descriptive-style",
+      "provider_instruction": "把整段视频转绘为温暖的手绘奇幻日系动画：细腻二维赛璐璐人物、柔和水彩背景、自然光、质朴色彩、富有生命力的风与云、克制而真实的表演；保持原创，不复制任何在世艺术家、动画导演或具体工作室的独特画风。"
+    },
+    {
+      "id": "classic-superhero-comic",
+      "display_name": "经典美式超级英雄漫画",
+      "category": "visual-style",
+      "character_presentation": "preserve-source-silhouette",
+      "ip_mode": "descriptive-style",
+      "provider_instruction": "把整段视频转绘为经典美式超级英雄漫画：有力墨线、清晰肌理、有限印刷色、动态速度线、戏剧性明暗与分镜感；人物仍保持原本体态，不套用具体漫画家的个人笔触。"
+    },
+    {
+      "id": "retro-tokusatsu",
+      "display_name": "复古日式特摄英雄",
+      "category": "visual-style",
+      "character_presentation": "preserve-source-silhouette",
+      "ip_mode": "descriptive-style",
+      "provider_instruction": "把主要人物转绘为原创复古日式特摄英雄：实拍皮套质感、原创头盔与胸甲、微缩模型般的电影布光、适度胶片颗粒；不得复制任何现有特摄角色的头盔、徽章或配色组合。"
+    },
+    {
+      "id": "moon-rose-sorceress",
+      "display_name": "月光蔷薇女术士",
+      "category": "original-character",
+      "character_presentation": "replace-character-preserve-motion-anchor",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "把主要人物完整重塑为原创成年月光蔷薇女术士：冷调鹅蛋脸、淡紫虹膜、银白及腰大波浪长发、月牙额饰、珍珠白与雾紫礼装、月相水晶和蔷薇银纹；把环境同构重绘为月光玻璃花房，采用干净细线、透明赛璐璐阴影与柔和水彩背景。"
+    },
+    {
+      "id": "crystal-academy-alchemist",
+      "display_name": "星夜水晶学院炼金师",
+      "category": "original-character",
+      "character_presentation": "replace-character-preserve-motion-anchor",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "把主要人物完整重塑为原创成年水晶学院炼金师：柔和圆脸、湖蓝眼睛、蓝黑齐下颌短波波头、星屑眼妆、水晶镜片和藏蓝象牙白学院礼装；把环境同构重绘为云海上的水晶学院教室，使用清透赛璐璐光影与细腻手绘背景。"
+    },
+    {
+      "id": "neon-mechanical-diva",
+      "display_name": "霓虹机械虚拟歌姬",
+      "category": "original-character",
+      "character_presentation": "replace-character-preserve-motion-anchor",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "把主要人物完整重塑为原创成年霓虹机械虚拟歌姬：窄长未来感脸型、青绿色眼睛、金属薰衣草紫双高马尾、几何眼妆、银黑机能内搭和透明蓝紫短夹克；把环境同构重绘为未来城市直播间，采用锐利通透的原创科幻二维动画。"
+    },
+    {
+      "id": "oriental-moon-flower-spirit",
+      "display_name": "东方月下花灵",
+      "category": "original-character",
+      "character_presentation": "replace-character-preserve-motion-anchor",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "把主要人物完整重塑为原创成年东方月下花灵：古典长脸、金褐眼睛、乌黑及腰直发与半盘发、淡金花钿、月白淡青交叠领窄袖衣装；把环境同构重绘为月下水榭庭院，采用柔韧墨线、淡彩纸本背景与清透人物光影。"
+    },
+    {
+      "id": "dark-swan-countess",
+      "display_name": "暗夜黑天鹅女伯爵",
+      "category": "original-character",
+      "character_presentation": "replace-character-preserve-motion-anchor",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "把主要人物完整重塑为原创成年暗夜黑天鹅女伯爵：雕塑感菱形脸、灰蓝虹膜、黑色羽毛盘发与银白侧刘海、深酒红眼妆、黑天鹅绒礼装；把环境同构重绘为月光黑玻璃舞厅，采用哥特浪漫二维漫画和细腻羽毛材质。"
+    },
+    {
+      "id": "candy-cloud-designer",
+      "display_name": "糖果云朵梦境设计师",
+      "category": "original-character",
+      "character_presentation": "replace-character-preserve-motion-anchor",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "把主要人物完整重塑为原创成年糖果云朵梦境设计师：饱满心形脸、琥珀眼睛、蜜桃粉与天空蓝渐变的蓬松短卷发、彩色眼妆和奶油白梦境时装；把环境同构重绘为云朵设计室，采用明亮二维梦境漫画、奶油赛璐璐渐层与粉彩背景。"
+    },
+    {
+      "id": "black-haired-moon-rose-guardian",
+      "display_name": "黑发银月蔷薇守护者",
+      "category": "original-character",
+      "character_presentation": "replace-character-preserve-motion-anchor",
+      "ip_mode": "original-archetype",
+      "provider_instruction": "把主要人物完整重塑为原创成年黑发银月蔷薇守护者：冷调精致脸型、紫灰眼睛、乌黑及腰直发和整齐刘海、银紫月相礼装、晶体胸饰与透明短披肩；把环境同构重绘为满月照耀的银蓝蔷薇回廊，采用精致二维幻想漫画、清透赛璐璐阴影和月光水彩背景。"
+    }
+  ]
+}

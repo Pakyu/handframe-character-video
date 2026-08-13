@@ -1,0 +1,199 @@
+{
+  "schema_version": "2.0.0-qiaomu-lite",
+  "generated_at": "2026-08-13",
+  "package": {
+    "name": "handframe-character-video",
+    "version": "0.9.0",
+    "owner": "local-user",
+    "maturity_tier": "governed",
+    "lifecycle_stage": "production-v1",
+    "upstream_inspiration": "https://www.zhuzhu.store/; local:chengfeng-videocut-skills/剪口播; local:小云雀-AI创作; https://github.com/agentspace-so/runcomfy-skills/tree/main/video-edit; https://github.com/openclaw/openclaw/tree/main/skills/video-frames; https://github.com/majiayu000/claude-skill-registry/tree/main/skills/ai-ml/mediapipe-usage; https://github.com/jianshuo/claude-skills/tree/main/wjs-reframing-video",
+    "upstream_sync": {}
+  },
+  "intent": {
+    "description": "只需用户上传一条原片（人物视频），先明确选择一个或多个原创角色/描述性画风，再通过视频编辑模型生成动作、构图和全局时序对齐的完整角色转绘视频；支持在成片手势框内约每 1–2 秒轮换一个显著不同的角色，切换时读取各转绘片的同一全局时刻。使用 MediaPipe 检测双手四角，把手部四边形作为动态遮罩窗口，仅在框内显示同位置风格化画面。用户提到现有 IP、艺术家或工作室时，只转译为原创原型或一般视觉特征。不得根据外表推断性别，不调用摄像头，不把本地滤镜冒充角色转绘。",
+    "job_to_be_done": "用户只上传一条人物原片并明确选择一个或多个原创角色原型或描述性画风；Skill 为每种风格生成一条与原片全局时序对齐的完整转绘视频，再用双手四边形作为动态遮罩窗口显示同位置风格化画面，并可在手框完全展开后约每 1–2 秒轮换显著不同的角色，经逐条转绘审核与轨迹审核输出成片和验证证据。",
+    "target_users": [
+      "制作角色转绘手势框短视频的创作者",
+      "负责有审核闸门的视频自动化 Agent 操作者"
+    ],
+    "inputs": [
+      "人物原片",
+      "用户明确选择的一个或多个原创角色原型或描述性画风",
+      "可选整数秒模型档位",
+      "外部上传与 credits 确认",
+      "可选 BGM"
+    ],
+    "outputs": [
+      "每种风格的 transformation_request / transformed_inside / transform_verification",
+      "tracking.json",
+      "review_config.json",
+      "review_confirmed.json",
+      "output.mp4",
+      "render_report.json",
+      "verification.json",
+      "human review evidence"
+    ],
+    "exclusions": [
+      "视觉性别或其他敏感属性推断",
+      "未经确认的媒体上传或 credits 消耗",
+      "现有 IP 名称、标志、经典配色与精确角色设计进入 Provider 提示词",
+      "在世艺术家个人画风复刻",
+      "P-broll 内置风格",
+      "本地滤镜冒充角色转绘",
+      "摄像头与实时特效"
+    ],
+    "qiaomu_defaults": {}
+  },
+  "triggers": {
+    "should_trigger": [
+      "只上传这条人物原片，把人物变成蜘蛛侠放进双手框里",
+      "这次明确选蜘蛛格温，不要判断原片人物性别，再做手势取景框",
+      "把这一条原片的人物转绘成钢铁侠，再做手指框内换画面",
+      "我想按人物男女自动匹配蜘蛛侠版本，并做双手框效果",
+      "只用原片做成宫崎骏电影那种温暖手绘动画感觉，显示在手势框内",
+      "Transform this one video into Spider-Man inside a tracked hand gesture frame.",
+      "一条原片生成六个明显不同的人物转绘视频，手势框展开后每一两秒换一个角色"
+    ],
+    "should_not_trigger": [
+      "打开摄像头给我做实时蜘蛛侠滤镜",
+      "帮我识别这张照片里的人是男是女",
+      "生成一段完全虚构的蜘蛛侠打斗视频",
+      "帮我剪掉这条口播里的口误和停顿",
+      "把第二段视频做成普通画中画放右下角",
+      "Build a real-time webcam Iron Man mask."
+    ],
+    "near_neighbor": [
+      "把整条人物视频转成蜘蛛侠，不需要手势框",
+      "给这张照片做成温暖手绘动画风格",
+      "检测视频里有几个人，但不用做角色转绘或合成",
+      "用 P-broll 做一个纸拼贴 B-roll"
+    ]
+  },
+  "workflow": {
+    "router_rules": [],
+    "compact_workflow": [
+      "只接收用户明确提供的一条原片；先验证时长、分辨率和主体可见性。制作真实项目之前先读取 `references/production-success-playbook.md`。",
+      "用户未指定角色/风格时必须询问一次，不得自行根据人物外表判断性别后选角色。",
+      "现有影视、漫画、游戏角色一律在提交前映射为原创原型：蛛网/都市英雄类映射为 `original-urban-comic-hero`，动力装甲类映射为 `original-armored-hero`；Provider 提示词不得出现现有 IP 名称、标志、精确服装或可识别设计。",
+      "艺术家或工作室命名风格统一转译为媒介、线条、色彩、光线、运动和情绪等一般特征；“宫崎骏/吉卜力风格”映射为 `warm-handpainted-fantasy-anime`。",
+      "Provider 只支持整数秒且原片不是整数秒时，选择最接近且不超过原片的可用时长；若已有生成片，优先与其档位一致。运行 `scripts/prepare_integer_source.py` 输出新文件，绝不覆盖源文件。",
+      "每个角色分别运行 `scripts/prepare_transform_request.py`。角色替换型方案允许脸型、发色、发型、妆容、服装和角色身份显著改变，只锁定动作骨架、人物占位、手指、镜头与时序锚点。",
+      "只有用户明确同意上传媒体和可能的 credits 消耗后，才通过当前可用的视频编辑适配器提交；优先使用已安装的 `小云雀-AI创作` 后端 Agent 路线。",
+      "下载真实转绘视频，运行 `scripts/verify_transform_output.py`；转绘片必须与原片保持全画面空间位置和时序对齐。自动检查只验证媒体合同，角色准确性、环境匹配、手指对齐和时间稳定性仍必须人工观看；错位不得靠透视变形补救。",
+      "把裁后原片以及一条或多条完整转绘视频、请求和验证报告交给 `scripts/prepare_project.py`；每条 `--inside` 对应一套证据。手部四边形只作为裁切窗口。检测到两只手后立即使用食指尖和拇指尖构成四角：闭合时稳定为细线，随后连续跟随指尖展开。",
+      "多角色默认从手框首次进入 `open` 时开始轮换，把剩余时长平均分给全部角色，通常约 1–2 秒一换并做约 0.12 秒短交叉淡化。所有转绘片始终读取成片的同一全局时间，不从 0 秒重播；顺序用尽后保持最后一条，不循环。",
+      "用户必须逐条勾选接受全部 AI 转绘视频，并确认四角轨迹与轮换节奏后，才允许渲染与验证。",
+      "用户指出局部抽搐时，先区分检测噪声与真实旋转。角点顺序固定为“左食指、右食指、右拇指、左拇指”，允许旋转时形成自交蝴蝶结路径；不得为了维持凸四边形而按几何角度或最小位移循环重排。只有确认是坐标尖峰后，才用 `scripts/stabilize_tracking.py` 对明确时间段轻量去噪，并重新审核。",
+      "多角色成片验证必须同时检查：每条风格至少进入一次时间线、所有转绘片读取同一全局时刻、转绘片两两视觉差异代理值通过，以及轨迹中存在的自交旋转在渲染报告中仍有对应帧。视觉差异代理只检测像素级不同，不能替代人物身份、审美与角色区分度的人工观看。"
+    ],
+    "gate_ladder": [],
+    "output_contract": []
+  },
+  "resources": {
+    "references": [
+      "references\\character-style-catalog.md",
+      "references\\production-success-playbook.md",
+      "references\\trust-and-degradation.md",
+      "references\\workflow.md"
+    ],
+    "scripts": [
+      "scripts\\common.py",
+      "scripts\\multi_style_self_test.py",
+      "scripts\\prepare_integer_source.py",
+      "scripts\\prepare_project.py",
+      "scripts\\prepare_transform_request.py",
+      "scripts\\render_video.py",
+      "scripts\\review_server.py",
+      "scripts\\self_test.py",
+      "scripts\\stabilize_tracking.py",
+      "scripts\\verify_output.py",
+      "scripts\\verify_transform_output.py",
+      "scripts\\watch_review.py"
+    ],
+    "evals": [
+      "evals\\output_cases.json",
+      "evals\\trigger_cases.json"
+    ],
+    "reports": [
+      "reports\\browser-ui-evidence.json",
+      "reports\\creation-handoff.md",
+      "reports\\install-evidence.json",
+      "reports\\local-release-audit.json",
+      "reports\\local-release-audit.md",
+      "reports\\multi-style-sequence-evidence.json",
+      "reports\\output-evidence.json",
+      "reports\\prior-art-research.md",
+      "reports\\prior-art-v03-candidates.json",
+      "reports\\provider-capability-evidence.json",
+      "reports\\real-project-7s-stabilization.json",
+      "reports\\real-project-crossing-rotation-evidence.json",
+      "reports\\real-project-human-review.json",
+      "reports\\real-project-multi-style-retrospective-20260813.md",
+      "reports\\real-project-retrospective.md",
+      "reports\\reference-effect-analysis.md",
+      "reports\\skill-ir.json",
+      "reports\\trigger-eval.json",
+      "reports\\unit-test-evidence.json",
+      "reports\\window-gate-evidence.json"
+    ]
+  },
+  "portability": {
+    "canonical_format": "agent-skills",
+    "adapter_targets": [
+      "openai",
+      "claude",
+      "generic",
+      "agent-skills-compatible"
+    ],
+    "activation": {
+      "mode": "manual",
+      "paths": []
+    },
+    "execution": {
+      "context": "local-plus-approved-external-provider",
+      "shell": "powershell-or-bash"
+    },
+    "trust": {
+      "source_tier": "local",
+      "remote_inline_execution": "forbid",
+      "generated_public_claims": "evidence-bound"
+    },
+    "permissions": {
+      "network": "approved video-edit provider plus pinned MediaPipe components",
+      "file_read": "explicit user media, provider output, and project files",
+      "file_write": "new transform and project directories only",
+      "subprocess": "Python, ffmpeg, ffprobe, and an explicitly approved provider adapter",
+      "interactive": "role/style selection, upload/credits confirmation, transformed-video approval, hand-frame review"
+    },
+    "degradation": {
+      "openai": "canonical-source",
+      "claude": "canonical-source",
+      "generic": "manual provider package"
+    }
+  },
+  "gates": {
+    "production": [
+      "explicit style selection",
+      "no sensitive attribute inference",
+      "provider trace and credits confirmation",
+      "transformed-video human approval",
+      "hand-frame review confirmation",
+      "output verification",
+      "pairwise multi-style visual-distinctness proxy plus human identity review",
+      "semantic fingertip crossing preserved in runtime render report"
+    ],
+    "governed": [
+      "source files remain immutable",
+      "upload and external cost are explicit",
+      "provider prompts exclude named IP and exact protected designs",
+      "missing provider/human evidence stays explicit"
+    ]
+  },
+  "evidence_boundary": {
+    "generated_reports_are_evidence": true,
+    "planned_work_is_evidence": false,
+    "missing_external_or_human_evidence_label": "missing evidence",
+    "public_claim_policy": "claim only what local validation, install proof, human review, or provider-backed evidence actually supports"
+  }
+}

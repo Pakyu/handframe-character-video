@@ -1,0 +1,33 @@
+{
+  "recommended_threshold": 0.34,
+  "description_required_concepts": ["single_source", "character_restyle", "hand_frame"],
+  "positive_concepts": {
+    "single_source": ["只上传原片", "只用原片", "一条原片", "一条人物视频", "single source", "one video"],
+    "character_restyle": ["角色转绘", "人物转绘", "风格化视频", "蜘蛛侠", "蜘蛛格温", "钢铁侠", "救援装甲", "宫崎骏", "吉卜力", "手绘动画", "video restyle", "character transformation", "spider-man", "iron man"],
+    "hand_frame": ["手势框", "双手框", "手指框", "取景框", "框内", "mediapipe", "hand frame", "gesture frame"]
+  },
+  "negative_patterns": ["实时摄像头", "直播特效", "打开摄像头", "不需要手势框", "不用手势框", "剪口播", "识别口误", "普通画中画", "webcam", "live camera"],
+  "should_trigger": [
+    {"text": "只上传这条人物原片，把人物变成蜘蛛侠放进双手框里", "family": "cn_spiderman_single_source"},
+    {"text": "这次明确选蜘蛛格温，不要判断原片人物性别，再做手势取景框", "family": "cn_spider_gwen_explicit"},
+    {"text": "把这一条原片的人物转绘成钢铁侠，再做手指框内换画面", "family": "cn_ironman_handframe"},
+    {"text": "我想按人物男女自动匹配蜘蛛侠版本，并做双手框效果", "family": "cn_gender_request_safe_reroute"},
+    {"text": "只用原片做成宫崎骏电影那种温暖手绘动画感觉，显示在手势框内", "family": "cn_artist_style_reframe"},
+    {"text": "Transform this one video into Spider-Man inside a tracked hand gesture frame.", "family": "en_character_handframe"},
+    {"text": "一条原片生成六个明显不同的人物转绘视频，手势框展开后每一两秒换一个角色", "family": "cn_multi_character_rotation"}
+  ],
+  "should_not_trigger": [
+    {"text": "打开摄像头给我做实时蜘蛛侠滤镜", "family": "live_camera"},
+    {"text": "帮我识别这张照片里的人是男是女", "family": "gender_classification_only"},
+    {"text": "生成一段完全虚构的蜘蛛侠打斗视频", "family": "text_to_video_only"},
+    {"text": "帮我剪掉这条口播里的口误和停顿", "family": "talking_head_cut"},
+    {"text": "把第二段视频做成普通画中画放右下角", "family": "ordinary_pip"},
+    {"text": "Build a real-time webcam Iron Man mask.", "family": "webcam_app"}
+  ],
+  "near_neighbor": [
+    {"text": "把整条人物视频转成蜘蛛侠，不需要手势框", "family": "whole_video_restyle"},
+    {"text": "给这张照片做成温暖手绘动画风格", "family": "image_restyle"},
+    {"text": "检测视频里有几个人，但不用做角色转绘或合成", "family": "person_count_only"},
+    {"text": "用 P-broll 做一个纸拼贴 B-roll", "family": "pbroll_collage"}
+  ]
+}

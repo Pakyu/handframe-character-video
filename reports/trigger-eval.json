@@ -1,0 +1,234 @@
+{
+  "ok": true,
+  "threshold": 0.34,
+  "description_concepts": [
+    "character_restyle",
+    "hand_frame",
+    "single_source"
+  ],
+  "missing_description_concepts": [],
+  "summary": {
+    "total": 17,
+    "passed": 17,
+    "false_positive": 0,
+    "false_negative": 0,
+    "pass_rate": 1.0
+  },
+  "failures": [],
+  "results": {
+    "should_trigger": [
+      {
+        "prompt": "只上传这条人物原片，把人物变成蜘蛛侠放进双手框里",
+        "family": "cn_spiderman_single_source",
+        "expected_trigger": true,
+        "predicted_trigger": true,
+        "passed": true,
+        "score": 0.667,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "这次明确选蜘蛛格温，不要判断原片人物性别，再做手势取景框",
+        "family": "cn_spider_gwen_explicit",
+        "expected_trigger": true,
+        "predicted_trigger": true,
+        "passed": true,
+        "score": 0.667,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "把这一条原片的人物转绘成钢铁侠，再做手指框内换画面",
+        "family": "cn_ironman_handframe",
+        "expected_trigger": true,
+        "predicted_trigger": true,
+        "passed": true,
+        "score": 1.0,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame",
+          "single_source"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "我想按人物男女自动匹配蜘蛛侠版本，并做双手框效果",
+        "family": "cn_gender_request_safe_reroute",
+        "expected_trigger": true,
+        "predicted_trigger": true,
+        "passed": true,
+        "score": 0.667,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "只用原片做成宫崎骏电影那种温暖手绘动画感觉，显示在手势框内",
+        "family": "cn_artist_style_reframe",
+        "expected_trigger": true,
+        "predicted_trigger": true,
+        "passed": true,
+        "score": 1.0,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame",
+          "single_source"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "Transform this one video into Spider-Man inside a tracked hand gesture frame.",
+        "family": "en_character_handframe",
+        "expected_trigger": true,
+        "predicted_trigger": true,
+        "passed": true,
+        "score": 1.0,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame",
+          "single_source"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "一条原片生成六个明显不同的人物转绘视频，手势框展开后每一两秒换一个角色",
+        "family": "cn_multi_character_rotation",
+        "expected_trigger": true,
+        "predicted_trigger": true,
+        "passed": true,
+        "score": 1.0,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame",
+          "single_source"
+        ],
+        "negative_pattern": null
+      }
+    ],
+    "should_not_trigger": [
+      {
+        "prompt": "打开摄像头给我做实时蜘蛛侠滤镜",
+        "family": "live_camera",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.333,
+        "matched_concepts": [
+          "character_restyle"
+        ],
+        "negative_pattern": "打开摄像头"
+      },
+      {
+        "prompt": "帮我识别这张照片里的人是男是女",
+        "family": "gender_classification_only",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.0,
+        "matched_concepts": [],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "生成一段完全虚构的蜘蛛侠打斗视频",
+        "family": "text_to_video_only",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.333,
+        "matched_concepts": [
+          "character_restyle"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "帮我剪掉这条口播里的口误和停顿",
+        "family": "talking_head_cut",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.0,
+        "matched_concepts": [],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "把第二段视频做成普通画中画放右下角",
+        "family": "ordinary_pip",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.0,
+        "matched_concepts": [],
+        "negative_pattern": "普通画中画"
+      },
+      {
+        "prompt": "Build a real-time webcam Iron Man mask.",
+        "family": "webcam_app",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.333,
+        "matched_concepts": [
+          "character_restyle"
+        ],
+        "negative_pattern": "webcam"
+      }
+    ],
+    "near_neighbor": [
+      {
+        "prompt": "把整条人物视频转成蜘蛛侠，不需要手势框",
+        "family": "whole_video_restyle",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.667,
+        "matched_concepts": [
+          "character_restyle",
+          "hand_frame"
+        ],
+        "negative_pattern": "不需要手势框"
+      },
+      {
+        "prompt": "给这张照片做成温暖手绘动画风格",
+        "family": "image_restyle",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.333,
+        "matched_concepts": [
+          "character_restyle"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "检测视频里有几个人，但不用做角色转绘或合成",
+        "family": "person_count_only",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.333,
+        "matched_concepts": [
+          "character_restyle"
+        ],
+        "negative_pattern": null
+      },
+      {
+        "prompt": "用 P-broll 做一个纸拼贴 B-roll",
+        "family": "pbroll_collage",
+        "expected_trigger": false,
+        "predicted_trigger": false,
+        "passed": true,
+        "score": 0.0,
+        "matched_concepts": [],
+        "negative_pattern": null
+      }
+    ]
+  }
+}

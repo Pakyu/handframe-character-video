@@ -1,0 +1,36 @@
+{
+  "name": "handframe-character-video",
+  "version": "0.9.0",
+  "owner": "local-user",
+  "updated_at": "2026-08-13",
+  "status": "active",
+  "maturity_tier": "governed",
+  "lifecycle_stage": "production-v1",
+  "context_budget_tier": "production",
+  "review_cadence": "quarterly",
+  "intent": {
+    "job_to_be_done": "用户只上传一条人物原片并明确选择一个或多个原创角色原型或描述性画风；Skill 为每种风格生成一条与原片全局时序对齐的完整转绘视频，再用双手四边形作为动态遮罩窗口显示同位置风格化画面，并可在手框完全展开后约每 1–2 秒轮换显著不同的角色，经逐条转绘审核与轨迹审核输出成片和验证证据。",
+    "target_users": ["制作角色转绘手势框短视频的创作者", "负责有审核闸门的视频自动化 Agent 操作者"],
+    "inputs": ["人物原片", "用户明确选择的一个或多个原创角色原型或描述性画风", "可选整数秒模型档位", "外部上传与 credits 确认", "可选 BGM"],
+    "outputs": ["每种风格的 transformation_request / transformed_inside / transform_verification", "tracking.json", "review_config.json", "review_confirmed.json", "output.mp4", "render_report.json", "verification.json", "human review evidence"],
+    "exclusions": ["视觉性别或其他敏感属性推断", "未经确认的媒体上传或 credits 消耗", "现有 IP 名称、标志、经典配色与精确角色设计进入 Provider 提示词", "在世艺术家个人画风复刻", "P-broll 内置风格", "本地滤镜冒充角色转绘", "摄像头与实时特效"]
+  },
+  "upstream_inspiration": "https://www.zhuzhu.store/; local:chengfeng-videocut-skills/剪口播; local:小云雀-AI创作; https://github.com/agentspace-so/runcomfy-skills/tree/main/video-edit; https://github.com/openclaw/openclaw/tree/main/skills/video-frames; https://github.com/majiayu000/claude-skill-registry/tree/main/skills/ai-ml/mediapipe-usage; https://github.com/jianshuo/claude-skills/tree/main/wjs-reframing-video",
+  "target_platforms": ["openai", "claude", "generic", "agent-skills-compatible"],
+  "permissions": {
+    "network": "only an explicitly approved video-edit provider and pinned MediaPipe retrieval",
+    "file_read": "explicit user media, provider output, and project evidence",
+    "file_write": "new isolated transform and project directories only",
+    "subprocess": "python, ffmpeg, ffprobe, approved provider adapter",
+    "camera": "forbidden",
+    "sensitive_attribute_inference": "forbidden",
+    "external_generation": "requires explicit upload and credits confirmation"
+  },
+  "runtime_adapters": {
+    "preferred": "小云雀-AI创作 backend-agent video editing",
+    "current_auth_evidence": "missing",
+    "current_cli_evidence": "missing"
+  },
+  "rollback_boundary": "delete generated integer-duration copies, transform directories, and project directories; source media is never modified",
+  "release_gates": ["validate_skill", "trigger_eval", "request_contract_tests", "single_integer_source_identity", "integer_duration_trim_test", "named_ip_reframed_before_provider", "aligned_mask_window_no_perspective_warp", "continuous_line_to_quad_reveal", "semantic_fingertip_corner_identity", "self_intersecting_rotation_preserved", "bow_tie_mask_not_convex_hull", "runtime_crossing_report", "local_tracking_spike_smoothing", "multi_character_global_timeline", "all_styles_once_no_loop", "multi_style_pairwise_visual_distinctness_proxy", "per_transform_human_approval", "preview_render_invariant", "phase_transition_spot_check", "recorded_fixture_output_eval", "no_sensitive_attribute_inference", "provider_trace", "review_confirmation", "media_identity_check", "secret_scan", "evidence_bound_claims"]
+}

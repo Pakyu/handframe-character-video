@@ -1,0 +1,30 @@
+{
+  "evidence_type": "real_project_human_approval",
+  "recorded_at": "2026-08-12T09:33:22+08:00",
+  "skill_version": "0.6.0",
+  "provider_backed": false,
+  "human_blind_review": false,
+  "ok": true,
+  "reviewer": "user",
+  "decision": "approved",
+  "reason": "用户明确表示“确认审核，这次做得非常好”。",
+  "validated_scope": [
+    "真实人物原片与真实手部轨迹",
+    "全画面对齐的动态遮罩合成",
+    "细线到展开中再到完整四边形的连续过程",
+    "原创都市蒙面漫画英雄风格化回传视频"
+  ],
+  "project": "G:\\潘柏宇\\Codex\\handframe-tests\\650128a37c4f91734952a44583acb391-original-10s-project-20260811",
+  "output": {
+    "path": "G:\\潘柏宇\\Codex\\handframe-tests\\650128a37c4f91734952a44583acb391-original-10s-project-20260811\\output.mp4",
+    "sha256": "F72933925A0EBA67F5A0AC05CCE8858938D63493CE5110449895C1A569FB2DF9",
+    "duration_seconds": 10.0,
+    "dimensions": [1080, 1920],
+    "fps": 30.0
+  },
+  "limitations": [
+    "这是真实用户审核，但不是答案隔离的盲评。",
+    "只证明本次视频与当前轨迹结果获得用户认可，不证明所有人物、动作和生成模型都能达到同等质量。",
+    "Seedance 2.0 模型名称仍只有用户说明，没有平台任务 ID 或页面截图。"
+  ]
+}

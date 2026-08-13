@@ -1,0 +1,27 @@
+{
+  "evidence_type": "synthetic_multi_style_end_to_end",
+  "tested_at": "2026-08-12",
+  "skill_version": "0.8.0",
+  "ok": true,
+  "checks": {
+    "all_styles_receive_frames": true,
+    "global_timeline_sync": true,
+    "sequence_start_preserved": true,
+    "ordered_switches_and_last_style_hold": true,
+    "final_verification": true
+  },
+  "fixture": {
+    "duration_seconds": 2.0,
+    "inside_count": 3,
+    "sequence_start_seconds": 0.25,
+    "segment_seconds": 0.5,
+    "transition_seconds": 0.05,
+    "style_frame_counts": [12, 7, 11],
+    "sample_center_pixels_bgr": [[15, 18, 225], [13, 218, 15], [214, 16, 15]]
+  },
+  "limitations": [
+    "synthetic color clips; not evidence of Seedance character quality",
+    "manual full-frame tracking; not evidence of hand detection quality",
+    "visual character distinctness still requires human review of real transformed videos"
+  ]
+}
